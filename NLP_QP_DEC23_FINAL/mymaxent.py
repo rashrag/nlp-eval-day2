@@ -17,7 +17,7 @@ import datetime
 # ----------------------------------------------------------------------------------------
 class MyMaxEnt(object):
     def __init__(self, history_tuples, function_obj, reg_lambda = 0.01, pic_file = None): 
-        # history_tuples is of the form: ((ta, tb, wn, i), tag) where ta = tag t-2, tb = tag t-1, wn = pointer to a sentence, i = current index
+        # history_tuples is of the form: ((word_list, tag_list, entity_list), relation)
         # function_list is of the form: [(pointer_to_function_f1, tag_for_f1), (pointer_to_function_f2, tag_for_f2)...]
         # reg_lambda = regularization coefficient
         # pic_file = Name of file where the classifier is pickled

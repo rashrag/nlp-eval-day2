@@ -23,35 +23,12 @@ os_list = ["iOS", "Android", "Windows", "Symbian", "Bada", "Unix", "Linux", "Ubu
 os_list1 = [m.lower() for m in os_list]
 currency_symbols = ["rs", "inr", "$", "usd", "cents", "rupees"]
 size_list = ["inch", "cm", "inches", "cms", r'"', "''", "pixel", "px", "mega", "gb", "mb", "kb", "kilo", "giga", "mega-pixel" ]
-<<<<<<< HEAD
-
 comparison_list = ["greater", "than","lesser","compared"]
 interest_list = ["buy","bought","want","need","interested","wanted"]
-
-
-=======
 price_list=["cost","price","charge","fee","terms","payment","rate","fare","levy","toll","amount","sum","total","figure","expensive","cheap","cheaper","cheapest"];
-worth, (monetary) value;
-outlay, expense, expenses, expenditure, bill;
-valuation, quotation, estimate;
-informaldamage]
->>>>>>> 7df2859594830197b4d47a0a44b4943f578c8389
-brand_product_bigrams_dict = [] # use the web service from Ner_client to get this: ner.get_brand_product_bigrams() # gazeteer based 7th Dec 2014
-product_names = []
-client = ner_client.NerClient("1PI11CS137", "g11")
-
-for v in client.get_brand_product_bigrams_dict().values():
-    for v1 in v:
-        product_names.append(v1.lower())
-
-product_name_tokens = [] # some time product names may be strings with many words, we will split these so that we can compare it with input word token
-for p in product_names:
-    product_name_tokens.extend(p.split())
-
 
 class FeatureFunctions(object):
     def __init__(self, tag_list = None):
-        self.wmap = {}
         self.flist = {} #[self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f7, self.f8, self.f9, self.f10, self.f11, self.f12, self.f13]
 	self.check=false
         self.fdict = {}
@@ -64,35 +41,12 @@ class FeatureFunctions(object):
                     val.append(v)
                     self.fdict[tag] = val
 
-        self.supported_tags = self.fdict.keys()        
+        self.supported_tags = ["price_query", "feature_query", "comparison", "interest_intent", "irrelevant", "disagreement", "greeting", "agreement", "acknowledgement"]       
         return
-
-    def set_wmap(self, sents): # given a list of words sets wmap
-        for i in range(len(sents)):
-            self.wmap[i] = {'words': sents[i], 'pos_tags': nltk.pos_tag(sents[i])}
-        return
-
-    def check_list(self, clist, w):
-        #return 0
-        w1 = w.lower()
-        for cl in clist:
-            if w1 in cl:
-                return 1
-        return 0
-
-    #------------------------------- Phone tag ---------------------------------------------------------
-    # The following is an example for you to code your own functions
-    # returns True if wi is in phones tag = Phone
-    # h is of the form {'ta':xx, 'tb':xx, 'wn':xx, 'i':xx}
-    # self.wmap provides a list of sentences (tokens) where each element in the list is a dict {'words': word_token_list, 'pos_tags': pos_tags_list}
-    # each pos_tag is a tuple returned by NLTK tagger: (word, tag)
-    # h["wn"] refers to a sentence number
     
-<<<<<<< HEAD
-
     # if word is in comparison_list
     def fComparison_1(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Comparison":
+        if relation[0] != "comparison":
             return 0
 	for i in wordlist:
 		if i in comparison_list:
@@ -101,7 +55,7 @@ class FeatureFunctions(object):
 
     # if "org is better/worse than org" 
     def fComparison_2(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Comparison":
+        if relation[0] != "comparison":
             return 0
 	flag = 0
 	for i in taglist:
@@ -111,7 +65,7 @@ class FeatureFunctions(object):
 					flag=1
 	if flag==1:	
 		return 1
-=======
+
     def fPrice_1(self,wordlist,taglist,entities,relation):
         if relation[0] != "price_query":
             return 0
@@ -128,7 +82,6 @@ class FeatureFunctions(object):
         if([i for i in wordlist if i in comparelist]):
 	   self.check=true
 	   return 1
->>>>>>> 7df2859594830197b4d47a0a44b4943f578c8389
 	else:
 	   return 0
 	return 0
@@ -147,11 +100,10 @@ class FeatureFunctions(object):
 	   return 0
 	return 0
 
-<<<<<<< HEAD
 
     # if OS is followed by "has/have Feature"
     def fComparison_3(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Comparison":
+        if relation[0] != "comparison":
             return 0
 	flag = 0
 	for i in taglist:
@@ -159,8 +111,11 @@ class FeatureFunctions(object):
 			if (i+2) < len(wordlist):
 				if taglist[i+2]=="Feature":
 					flag = 1
-	if flag==1:	
-=======
+	if flag==1:
+            return 1
+        else:
+            return 0
+
     def ffeature_1(self,wordlist,taglist,entities,relation):
         if tag != "feature_query":
             return 0
@@ -181,7 +136,6 @@ class FeatureFunctions(object):
 	    nexttag=taglist[taglist.index("feature")+1];
             if(nexttag=="feature"):
                 self.check=true 
->>>>>>> 7df2859594830197b4d47a0a44b4943f578c8389
 		return 1
             else:
 		return 0
@@ -189,15 +143,9 @@ class FeatureFunctions(object):
 	    return 0
         return 0
 
-<<<<<<< HEAD
-
-
-
-
-
     # if word in list
     def fInterest_intent1(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Interest_intent":
+        if relation[0] != "interest_intent":
             return 0
 	for i in wordlist:
 		if i in interest_list:
@@ -206,7 +154,7 @@ class FeatureFunctions(object):
 
     # if phone tag is present
     def fInterest_intent2(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Interest_intent":
+        if relation[0] != "interest_intent":
             return 0
 	flag = 0
 	for i in taglist:
@@ -217,9 +165,8 @@ class FeatureFunctions(object):
 	else:
 		return 0	
 
-=======
    def ffeature_3(self,wordlist,taglist,entities,relation):
-        if tag != "feature_query":
+        if relation[0] != "feature_query":
             return 0
         if("want" in wordlist):
 	    return 0
@@ -228,7 +175,7 @@ class FeatureFunctions(object):
 	return 0
    
    def fIrrelevant_1(self,wordlist,taglist,entities,relation):
-	 if tag != "Irrelevant":
+	 if relation[0] != "irrelevant":
 	    return 0
 	 if("when" in wordlist):
 	    return 1
@@ -237,7 +184,7 @@ class FeatureFunctions(object):
 	 return 0
 
    def fIrrelevant_2(self,wordlist,taglist,entities,relation):
-	 if tag != "Irrelevant":
+	 if relation[0] != "irrelevant":
 	    return 0
 	 if("where" in wordlist):
 	    return 1
@@ -246,22 +193,20 @@ class FeatureFunctions(object):
 	 return 0
 
     def fIrrelevant_3(self,wordlist,taglist,entities,relation):
-	 if tag != "Irrelevant":
+	 if tag != "irrelevant":
 	    return 0
 	 if(taglist.count("Other") >= len(taglist)/2):
 	    return 1
 	 else:
 	    return 0
 	 return 0
->>>>>>> 7df2859594830197b4d47a0a44b4943f578c8389
-
 
     def evaluate(self, xi, tag):
         feats = []
         for t, f in self.fdict.items():
             if t == tag:
                 for f1 in f:
-                    feats.append(int(f1(self, xi, tag)))
+                    feats.append(int(f1(self, xi["word_list"],xi["tag_list"], xi["entity_list"], tag)))
             else:
                 for f1 in f:
                     feats.append(0)

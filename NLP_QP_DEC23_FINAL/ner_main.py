@@ -1,7 +1,7 @@
 #import ner_metrics
 import cleanTags
 import build_history
-import features
+import feature_functions
 #import mymaxent
 #import memm
 
@@ -16,11 +16,9 @@ tuple1 = build_history.call()
 ##print all_tags
 
 #create feature function obj call it func
-func_obj = features.FeatureFunctions()
-func_obj.set_wmap(sents)
+func_obj = feature_functions.FeatureFunctions()
 
-
-pickle_file = r"all_data.p"
+pickle_file = r"rer_data.p"
 maxentclf = mymaxent.MyMaxEnt(history_list,func_obj,reg_lambda=0.001, pic_file = pickle_file);
 TRAIN = int(raw_input("Enter 1 for Train, 0 to use pickeled file:  "))
 if TRAIN == 1:
