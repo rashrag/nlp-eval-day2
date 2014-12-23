@@ -26,7 +26,6 @@ size_list = ["inch", "cm", "inches", "cms", r'"', "''", "pixel", "px", "mega", "
 comparison_list = ["greater", "than","lesser","compared"]
 interest_list = ["buy","bought","want","need","interested","wanted"]
 price_list=["cost","price","charge","fee","terms","payment","rate","fare","levy","toll","amount","sum","total","figure","expensive","cheap","cheaper","cheapest"];
-
 class FeatureFunctions(object):
     def __init__(self, tag_list = None):
         self.flist = {} #[self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f7, self.f8, self.f9, self.f10, self.f11, self.f12, self.f13]
@@ -43,7 +42,8 @@ class FeatureFunctions(object):
 
         self.supported_tags = ["price_query", "feature_query", "comparison", "interest_intent", "irrelevant", "disagreement", "greeting", "agreement", "acknowledgement"]       
         return
-    
+
+
     # if word is in comparison_list
     def fComparison_1(self, wordlist, taglist, entities, relation): 
         if relation[0] != "comparison":
@@ -65,6 +65,23 @@ class FeatureFunctions(object):
 					flag=1
 	if flag==1:	
 		return 1
+	else:
+		return 0
+
+    # if OS is followed by "has/have Feature"
+    def fComparison_3(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Comparison":
+            return 0
+	flag = 0
+	for i in taglist:
+		if taglist[i]=="Org":
+			if (i+2) < len(wordlist):
+				if taglist[i+2]=="Feature":
+					flag = 1
+	if flag==1:	
+		return 1
+	else:
+		return 0
 
     def fPrice_1(self,wordlist,taglist,entities,relation):
         if relation[0] != "price_query":
@@ -193,7 +210,7 @@ class FeatureFunctions(object):
 	 return 0
 
     def fIrrelevant_3(self,wordlist,taglist,entities,relation):
-	 if tag != "irrelevant":
+	 if relation[0] != "irrelevant":
 	    return 0
 	 if(taglist.count("Other") >= len(taglist)/2):
 	    return 1
