@@ -1,6 +1,6 @@
 import random
 import json
-def cleanTags():
+def clean():
     data = json.loads(open("all_data.json").read())['root'] #list of sentences
     #print(len(data))
     for i in range(len(data)):
@@ -43,4 +43,4 @@ def cleanTags():
     newJson = json.dumps(newDict);
     f = open("new_all_data.json","w");
     f.write(newJson);
-cleanTags()
+#cleanTags()
