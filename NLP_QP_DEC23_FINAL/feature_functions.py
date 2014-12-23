@@ -24,6 +24,10 @@ os_list1 = [m.lower() for m in os_list]
 currency_symbols = ["rs", "inr", "$", "usd", "cents", "rupees"]
 size_list = ["inch", "cm", "inches", "cms", r'"', "''", "pixel", "px", "mega", "gb", "mb", "kb", "kilo", "giga", "mega-pixel" ]
 
+comparison_list = ["greater", "than","lesser","compared"]
+interest_list = ["buy","bought","want","need","interested","wanted"]
+
+
 brand_product_bigrams_dict = [] # use the web service from Ner_client to get this: ner.get_brand_product_bigrams() # gazeteer based 7th Dec 2014
 product_names = []
 client = ner_client.NerClient("1PI11CS137", "g11")
@@ -75,76 +79,75 @@ class FeatureFunctions(object):
     # each pos_tag is a tuple returned by NLTK tagger: (word, tag)
     # h["wn"] refers to a sentence number
     
-    def fPhone_1(self, h, tag):
-        if tag != "Phone":
-            return 0
-        words = self.wmap[h["wn"]]['words']        
-        if (words[h["i"]].lower() in phones):
-            return 1
-        else:
-            return 0
 
-    def fPhone_2(self, h, tag):
-	if tag != "Phone":
-		return 0
-	words = self.wmap[h["wn"]]['words']
-	if (h['tb'])== "Org":
+    # if word is in comparison_list
+    def fComparison_1(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Comparison":
+            return 0
+	for i in wordlist:
+		if i in comparison_list:
+			return 1
+	return 0
+
+    # if "org is better/worse than org" 
+    def fComparison_2(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Comparison":
+            return 0
+	flag = 0
+	for i in taglist:
+		if i=="Org":
+			if(i-1) >= 0:
+				if wordlist[i-1] == "than":
+					flag=1
+	if flag==1:	
 		return 1
 	else:
 		return 0
 
-    def fPhone_3(self, h, tag):
-	if tag != "Phone":
-		return 0
-	words = self.wmap[h["wn"]]['words']
-	if (h['tb'])== "Version":
+
+    # if OS is followed by "has/have Feature"
+    def fComparison_3(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Comparison":
+            return 0
+	flag = 0
+	for i in taglist:
+		if taglist[i]=="Org":
+			if (i+2) < len(wordlist):
+				if taglist[i+2]=="Feature":
+					flag = 1
+	if flag==1:	
 		return 1
 	else:
 		return 0
-	
 
-    def fPhone_4(self, h, tag):
-	if tag != "Phone":
-		return 0
-	words = self.wmap[h["wn"]]['words']
-	if (h['tb'])== "Family":
+
+
+
+
+
+    # if word in list
+    def fInterest_intent1(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Interest_intent":
+            return 0
+	for i in wordlist:
+		if i in interest_list:
+			return 1
+	return 0
+
+    # if phone tag is present
+    def fInterest_intent2(self, wordlist, taglist, entities, relation): 
+        if relation[0] != "Interest_intent":
+            return 0
+	flag = 0
+	for i in taglist:
+		if i=="Phone":
+			flag = 1
+	if flag == 1:
 		return 1
 	else:
-		return 0
+		return 0	
 
-    def fOrg_1(self, h, tag):
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']        
-        if (words[h["i"]].lower() in org_list1):
-            return 1
-        else:
-            return 0
 
-    def fOrg_2(self, h, tag):
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']        
-        if (words[h["i"]].lower() in org_list1):
-            if(words[h["i"]+ 1].lower() in phones):
-                return 1
-        else:
-            return 0
-    def fOrg_3(self, h ,tag): #low
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']
-        if(words[h["i"] - 1 ].lower() == "from" or words[h["i"] - 1 ].lower() == "by"):
-            if(words[h["i"]].lower() in org_list1):
-                return 1
-        else:
-            return 0
-
-    def fOrg_4(self, h, tag): #low
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']
-        
 
     def evaluate(self, xi, tag):
         feats = []
