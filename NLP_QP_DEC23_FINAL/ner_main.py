@@ -25,13 +25,13 @@ if TRAIN == 1:
         maxentclf.train();
 
 
-
+'''
 maxentclf = mymaxent.MyMaxEnt(history_list,func_obj,reg_lambda=0.001);
 maxentclf.train();
-
+'''
 print("-----------------------------TRAINED-----------------------------")
 
-
+'''
 #change this 10
 mytaglist=[]
 
