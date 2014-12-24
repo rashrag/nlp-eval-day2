@@ -5,7 +5,7 @@ import nltk.metrics.distance as dist
 import ner_client
 
 
-def comparison():
+def feature_query():
     pass
 
 
@@ -58,7 +58,7 @@ def interest_intent():
             if(brand == ""): # couldn't find the appropriate brand for this product
                 return "We  don't seem to have this product. Would you like to choose another?"
             else:
-                return "Sure, we have this product in stock"
+                return "Sure, we have this product in stock. What do you want to know about it?"
             
         elif(product == ""): # user says he wants to buy a phone of this brand but not which phone. Returns all phones of this brand, choose which you want
             for i in allprods:
@@ -71,7 +71,7 @@ def interest_intent():
             except KeyError as e:
                 return "We don't seem to have this device. Would you like to choose a different one?"
             
-            return "These are the phones we have in this brand. Do you have anything more specific in mind in terms of features or price?" + str(items)
+            return "These are some of the phones we have in this brand. Do you want to anything more specific in mind in terms of features or price?" + str(items[0:10])
         
         elif(len(brand) != 0): # user has specified brand and product
             if brand in allprods:
@@ -86,7 +86,12 @@ def make_compatible(input_str):
                 if(dist.edit_distance(rer_out['wordlist'][i], j) < 2):
                     rer_out['wordlist'][i] = j
                     break
-
+        if(rer_out['taglist'][i] == "Family"):
+            for j in allprods:
+                for k in allprods[j]:
+                    if(dist.edit_distance(rer_out['wordlist'][i], k) < 4):
+                        rer_out['wordlist'][i] = k
+                        break
 
 ner = ner_client.NerClient("1PI11CS137", "g11")
 brand = ""
@@ -97,9 +102,9 @@ items = []
 allprods = eval(ner.get_brand_product_bigrams_dict())
 #print(len(allprods))
 
-sentence = "I want to buy a google Nexus"
+sentence = "I want to buy an iphone"
 words = sentence.split(" ")
 
-rer_out = {'wordlist': words, 'relationship': 'interest_intent', 'taglist': ['Other', 'Other', 'Other', 'Other', 'Other', 'Org', 'Family']}
+rer_out = {'wordlist': words, 'relationship': 'interest_intent', 'taglist': ['Other', 'Other', 'Other', 'Other', 'Other', 'Family']}
 make_compatible(" ".join(rer_out['wordlist']))
 print(interest_intent())
