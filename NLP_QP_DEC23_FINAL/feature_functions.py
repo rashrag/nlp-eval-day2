@@ -29,24 +29,24 @@ price_list=["cost","price","charge","fee","terms","payment","rate","fare","levy"
 class FeatureFunctions(object):
     def __init__(self, tag_list = None):
         self.flist = {} #[self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f7, self.f8, self.f9, self.f10, self.f11, self.f12, self.f13]
-	self.check=false
+	self.check=False
         self.fdict = {}
         for k, v in FeatureFunctions.__dict__.items():
             if hasattr(v, "__call__"):
                 if k[0] == 'f':
                     self.flist[k] = v # .append(v)
-                    tag = k[1:].split("_")[0]
+                    tag = k[1:].split("A")[0]
                     val = self.fdict.get(tag, [])
                     val.append(v)
                     self.fdict[tag] = val
 
-        self.supported_tags = ["price_query", "feature_query", "comparison", "interest_intent", "irrelevant", "disagreement", "greeting", "agreement", "acknowledgement"]       
+        self.supported_tags = ["price_query", "feature_query", "comparison", "interest_intent", "irrelevant"]       
         return
 
 
     # if word is in comparison_list
-    def fComparison_1(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "comparison":
+    def fcomparisonA1(self, wordlist, taglist, entities, relation): 
+        if relation != "comparison":
             return 0
 	for i in wordlist:
 		if i in comparison_list:
@@ -54,13 +54,13 @@ class FeatureFunctions(object):
 	return 0
 
     # if "org is better/worse than org" 
-    def fComparison_2(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "comparison":
+    def fcomparisonA2(self, wordlist, taglist, entities, relation): 
+        if relation != "comparison":
             return 0
 	flag = 0
-	for i in taglist:
-		if i=="Org":
-			if(i-1) >= 0:
+	for i in range(len(taglist)):
+		if taglist[i]=="Org":
+			if((i-1) >= 0):
 				if wordlist[i-1] == "than":
 					flag=1
 	if flag==1:	
@@ -69,76 +69,63 @@ class FeatureFunctions(object):
 		return 0
 
     # if OS is followed by "has/have Feature"
-    def fComparison_3(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "Comparison":
+    def fcomparisonA3(self, wordlist, taglist, entities, relation): 
+        if relation != "comparison":
             return 0
 	flag = 0
-	for i in taglist:
-		if taglist[i]=="Org":
-			if (i+2) < len(wordlist):
-				if taglist[i+2]=="Feature":
-					flag = 1
+	
+	for i in range(len(wordlist)):
+		if wordlist[i]=="than":
+			if(taglist.count("Org")==2 or taglist.count("Family")==2):
+				flag=1
+				
 	if flag==1:	
 		return 1
 	else:
 		return 0
 
-    def fPrice_1(self,wordlist,taglist,entities,relation):
-        if relation[0] != "price_query":
+    def fprice_queryA1(self,wordlist,taglist,entities,relation):
+        if relation != "price_query":
             return 0
 	synpres=[i for i in wordlist if i in price_list]
-        if(!synpres):
+        if(not(synpres)):
 	    return 0
         else:
 	    return 1
         return 0
 
-	if("price" not in taglist):
+	if("Price" not in taglist):
 	    return 0        
 	comparelist=["less","greater","than","for"]
         if([i for i in wordlist if i in comparelist]):
-	   self.check=true
+	   self.check=True
 	   return 1
 	else:
 	   return 0
 	return 0
 
-    def fPrice_2(self,wordlist,taglist,entities,relation):
-	 if relation[0] != "price_query":
+    def fprice_queryA2(self,wordlist,taglist,entities,relation):
+	if relation != "price_query":
             return 0       
-	if("price" not in taglist):
+	if("Price" not in taglist):
 	    return 0        
-        preceed_word=wordlist[taglist.index("price")];
+        preceed_word=wordlist[taglist.index("Price")];
         comparelist=["less","greater","than","lesser","greater","under","above"]
         if(preceed_word in comparelist):
-	   self.check=true
+	   self.check=True
 	   return 1
 	else:
 	   return 0
 	return 0
 
 
-    # if OS is followed by "has/have Feature"
-    def fComparison_3(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "comparison":
-            return 0
-	flag = 0
-	for i in taglist:
-		if taglist[i]=="Org":
-			if (i+2) < len(wordlist):
-				if taglist[i+2]=="Feature":
-					flag = 1
-	if flag==1:
-            return 1
-        else:
-            return 0
 
-    def ffeature_1(self,wordlist,taglist,entities,relation):
-        if tag != "feature_query":
+    def ffeature_queryA1(self,wordlist,taglist,entities,relation):
+        if relation != "feature_query":
             return 0
         comparelist=["has","have","run","compare","contains"]
         if([i for i in wordlist if i in comparelist]):
-	   self.check=true
+	   self.check=True
 	   return 1
 	else:
 	   return 0
@@ -146,23 +133,24 @@ class FeatureFunctions(object):
 
 	
 
-    def ffeature_2(self,wordlist,taglist,entities,relation):
-        if tag != "feature_query":
+    def ffeature_queryA2(self,wordlist,taglist,entities,relation):
+        if relation != "feature_query":
             return 0
-        if("feature" in taglist):
-	    nexttag=taglist[taglist.index("feature")+1];
-            if(nexttag=="feature"):
-                self.check=true 
-		return 1
-            else:
-		return 0
-	else:
-	    return 0
+        if("Feature" in taglist):
+	    if(taglist.index("Feature")+1 < len(taglist)):
+	    	nexttag=taglist[taglist.index("Feature")+1];
+           	if(nexttag=="Feature"):
+           	     self.check=True 
+		     return 1
+            	else:
+		     return 0
+	    else:
+	    	return 0
         return 0
 
     # if word in list
-    def fInterest_intent1(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "interest_intent":
+    def finterest_intentA1(self, wordlist, taglist, entities, relation): 
+        if relation != "interest_intent":
             return 0
 	for i in wordlist:
 		if i in interest_list:
@@ -170,8 +158,8 @@ class FeatureFunctions(object):
 	return 0
 
     # if phone tag is present
-    def fInterest_intent2(self, wordlist, taglist, entities, relation): 
-        if relation[0] != "interest_intent":
+    def finterest_intentA2(self, wordlist, taglist, entities, relation): 
+        if relation != "interest_intent":
             return 0
 	flag = 0
 	for i in taglist:
@@ -182,8 +170,8 @@ class FeatureFunctions(object):
 	else:
 		return 0	
 
-   def ffeature_3(self,wordlist,taglist,entities,relation):
-        if relation[0] != "feature_query":
+    def ffeature_queryA3(self,wordlist,taglist,entities,relation):
+        if relation != "feature_query":
             return 0
         if("want" in wordlist):
 	    return 0
@@ -191,8 +179,8 @@ class FeatureFunctions(object):
 	    return 1
 	return 0
    
-   def fIrrelevant_1(self,wordlist,taglist,entities,relation):
-	 if relation[0] != "irrelevant":
+    def firrelevantA1(self,wordlist,taglist,entities,relation):
+	 if relation != "irrelevant":
 	    return 0
 	 if("when" in wordlist):
 	    return 1
@@ -200,8 +188,8 @@ class FeatureFunctions(object):
 	    return 0
 	 return 0
 
-   def fIrrelevant_2(self,wordlist,taglist,entities,relation):
-	 if relation[0] != "irrelevant":
+    def firrelevantA2(self,wordlist,taglist,entities,relation):
+	 if relation != "irrelevant":
 	    return 0
 	 if("where" in wordlist):
 	    return 1
@@ -209,10 +197,11 @@ class FeatureFunctions(object):
 	    return 0
 	 return 0
 
-    def fIrrelevant_3(self,wordlist,taglist,entities,relation):
-	 if relation[0] != "irrelevant":
+    def firrelevantA3(self,wordlist,taglist,entities,relation):
+        
+	 if relation != "irrelevant":
 	    return 0
-	 if(taglist.count("Other") >= len(taglist)/2):
+	 if(taglist.count("Other") >= len(taglist)/3):
 	    return 1
 	 else:
 	    return 0
@@ -221,8 +210,11 @@ class FeatureFunctions(object):
     def evaluate(self, xi, tag):
         feats = []
         for t, f in self.fdict.items():
+	    #print (t,tag)
             if t == tag:
+		#print ("Entered if")
                 for f1 in f:
+		    #print (f1)
                     feats.append(int(f1(self, xi["word_list"],xi["tag_list"], xi["entity_list"], tag)))
             else:
                 for f1 in f:

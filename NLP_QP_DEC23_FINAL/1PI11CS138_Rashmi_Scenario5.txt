@@ -1,0 +1,66 @@
+
+<Customer> Hi, I need some help.</Customer> 
+
+
+<Salesman> Hello there. May I be of some assistance? </Salesman> 
+
+
+<Customer>I am looking for a large screen phone.</Customer>
+
+
+<Salesman>Could you be a little more specific? What are you planning to use the phone for? </Salesman> 
+
+
+<Customer> I wish to watch movies in my free time. I would also like to support good network.</Customer>
+
+
+<Salesman>Okay, I have a few phones you might be interested in. The Samsung Galaxy Note is an excellent choice with a 5.55” touchscreen. </Salesman>
+
+
+
+
+<Customer> How expensive is it? I have another phone for work. I would not like to spend a lot. </Customer>
+
+
+<Salesman>It comes at a fairly reasonable price of Rs. 29999. We also have an ongoing offer of a free cover from Myntra along with the phone.</Salesman>
+
+
+
+
+<Customer> What other features does it have? What is the OS? </Customer>
+
+
+<Salesman>It runs on Android 4.1. Would you also be interested in the Nokia Lumia 1320? It is a great phone and comes at an economical price of Rs. 17000. Nokia XL is also a good phone. It comes with dual sim and if you send us your old phone, we’ll offer a discount of upto 20%.</Salesman>
+
+
+<Customer> I heard there are no Nokia phones being manufactured in India anymore. I want support for the phone in case of any issues.</Customer>
+
+
+<Salesman>The phone comes with 1-year warranty and the site will take responsibility for sending the phone to a service center should you face any problems.</Salesman>
+
+
+<Customer> What will I do after one year? I am a very busy woman. </Customer>
+
+
+<Salesman>In that case, why don’t you go for the Samsung Galaxy Note? It is definitely a classy phone. </Salesman>
+
+
+<Customer> Does it support dual SIM? </Customer>
+
+
+<Salesman> Unfortunately not, but with all the other features, it is a great buy. </Salesman>
+
+
+<Customer> Is there an EMI availabe? </Customer>
+
+
+<Salesman> Yes, there is. It starts from Rs. 1237</Salesman> 
+
+
+<Customer> Alright, I will get back to you soon.</Customer>
+
+
+<Salesman> Thank you for seeking assistance from us. Please don’t hesitate to contact us for any further help. </Salesman>
+
+
+<Customer> Bye </Customer>

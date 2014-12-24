@@ -1,8 +1,9 @@
-#import ner_metrics
+import rules
+import ner_metrics
 import cleanTags
 import build_history
 import feature_functions
-#import mymaxent
+import mymaxent
 #import memm
 
 #all_tags = build_history.supported_tags_list
@@ -31,18 +32,27 @@ maxentclf.train();
 '''
 print("-----------------------------TRAINED-----------------------------")
 
-'''
 #change this 10
 mytaglist=[]
 
 
-for hist in history_list[0:10]:
-	tag = maxentclf.classify(hist[0]);
+for hist in history_list[1200:]:
+	if(rules.rule_greet(hist[0]["word_list"]) == "Greeting"):
+		tag = "greeting"
+	elif(rules.rule_agree(hist[0]["word_list"]) == "Agreement"):
+		tag = "agreement"
+	elif(rules.rule_disagree(hist[0]["word_list"]) == "Disagreement"):
+		tag = "disagreement"
+	elif(rules.rule_ack(hist[0]["word_list"]) == "Acknowledgement"):
+		tag = "acknowledgement"
+	else:
+		tag = maxentclf.classify(hist[0]);
 	mytaglist.append(tag);
-print expected[0]
+print expected_relations[1:50]
 print("$$$$$")
-print mytaglist;
+print mytaglist[1:50];
 
+'''
 mymemm = memm.Memm()
 count = 0
 
@@ -56,11 +66,10 @@ for i in sents[1680:]:
                 print "error"
 	print "count: ",count
 	count += 1
+'''
 
 
-print "PREDICTED: ", len(predicted)
-
-metrics = ner_metrics.NerMetrics(expected[1680:], predicted)
+metrics = ner_metrics.NerMetrics(expected_relations[1200:], mytaglist)
 
 met = metrics.compute()
 
@@ -70,11 +79,10 @@ print met
 
 print "**************************************************************************"
 
-metrics.print_results()
+#metrics.print_results()
 
 
 
-'''
 '''
 for i in sents:
 	mymemm.viterbi(all_tags,i,maxentclf,count)
