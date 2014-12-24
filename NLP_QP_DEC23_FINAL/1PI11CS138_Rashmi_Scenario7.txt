@@ -1,0 +1,19 @@
+<Salesman> Hello my name is NNJ, How may I help you? </Salesman>
+<Customer> Hi! I am looking for a nice phone. Any suggestions ? </Customer>
+<Salesman> Are you looking for a specific price range or a specific feature ?</Salesman>
+<Customer> I prefer a dual SIM phone</Customer>
+<Salesman> Do you use your phone for multimedia or internet usage.</Salesman>
+<Customer> I usually use it for booking tickets and checking of mails.  </Customer>
+<Salesman> We have a lot of phones for such usage. Do you have any price range or any other preferences ?</Salesman>
+<Customer> Well around 10-15k ?  </Customer>
+<Salesman> Do you prefer an Android phone or a Windows phone ?</Salesman>
+<Customer> I'm comfortable with either of them. </Customer>
+<Salesman> That's great. I would like to suggest Lava Xolo Q1000 which has a 1.2Ghz Quad core processor which would be suitable for your email applications. </Salesman>
+<Customer> How much would that cost me?</Customer>
+<Salesman> The phone is currently priced at Rs 15000.</Salesman>
+<Salesman> Oh, I find that a bit expensive because I would not be using other multimedia applications of the phone to the full extent.  </Salesman>
+<Salesman> In that case, I would suggest you to go for a Samsung Galaxy Ace. It has minimal features for multimedia andprovides more supports email and editor applications. </Salesman>
+<Customer> Yeah, that would be suitable for my requirements .</Customer>
+<Salesman> Definitely sir, The price is also reasonable. It'll cost you Rs 10000.</Salesman>
+<Customer> Oh good. I shall think about it and get back to you. Thanks for your help. </Customer>
+<Salesman> I am glad to have been an assistance to you. Bye ! Have a nice day!</Salesman>
