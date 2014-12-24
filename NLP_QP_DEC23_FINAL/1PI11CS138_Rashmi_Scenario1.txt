@@ -1,0 +1,19 @@
+<Salesman> Hello Sir, How may I help you? </Salesman>
+<Customer> Hi! I am planning to buy a new phone. Any suggestions?</Customer>
+<Salesman> Sure Sir. Do you have anything particular in mind? </Salesman>
+<Customer> Umm. Not exactly. I would like to buy a phone which has good camera resolution.</Customer>
+<Salesman> We have phones with camera resolutions ranging from 5 MP to 40 MP. May I know your requirement ?</Salesman>
+<Customer> Basically, I am a wildlife photographer. So I would prefer a higher resolution camera. Around 40 MP? Also I have a good camera. Hence i dont want to spend too much on my phone </Customer>
+<Salesman> Then I would suggest you to buy a Nokia Lumia 1020. It has a 41 MP primary camera. This should be good enough for you to capture high resolution pictures in the absence of your handicam and it also comes at a reasonable price. </Salesman>
+<Customer> How much does it cost ? </Customer>
+<Salesman> It costs around 25k. But we can provide you with special discounts and give it to you at 21k</Salesman>
+<Customer> Oh that would be great. May I know the screen size? </Customer>
+<Salesman>  The phone has a 4.5 inch compact sharp screen with Gorilla Glass. </Salesman>
+<Customer> Hmm. But I am thinking that it might be a huge investment just for these features.</Customer>
+<Salesman> It would definitely be worth your investment when you look at the other attractive features such as a 2GB RAM which enables processing your images in an efficient way. </Salesman>
+<Salesman> It also provides an extensive internal storage space of 32GB to store as many pictures as you desire.  </Salesman>
+<Salesman> The phone has a back flashlight which proves beneficial for nightlife photography </Salesman>
+<Customer> Wow. That sounds convincing.</Customer>
+<Salesman> That's good to know Sir. The customer reviews have also been good.</Salesman>
+<Customer> Oh good. I shall think about it and get back to you. Thanks for your help. </Customer>
+<Salesman> I am glad to have been an assistance to you. Bye ! Have a nice day!</Salesman>

@@ -37,7 +37,7 @@ class MyMaxEnt(object):
     def create_dataset(self):
         self.dataset = []
         self.all_data = {}
-        for h in self.h_tuples[:7500]: # h represents each example x that we will convert to f(x, y)
+        for h in self.h_tuples[:1200]: # h represents each example x that we will convert to f(x, y)
             for tag in self.tag_set:
                 feats = self.all_data.get(tag, [])
                 val = self.get_feats(h[0], tag)
@@ -62,7 +62,7 @@ class MyMaxEnt(object):
     def train(self):
         dt1 = datetime.datetime.now()                   
         print 'before training: ', dt1         
-        params = mymin(self.cost, self.model, method = 'L-BFGS-B') #, jac = self.gradient) # , options = {'maxiter':100}
+        params = mymin(self.cost, self.model, method = 'L-BFGS-B', options= {'maxiter':100}) #, jac = self.gradient) # , options = {'maxiter':100}
         self.model = params.x
         dt2 = datetime.datetime.now()
         print 'after training: ', dt2, '  total time = ', (dt2 - dt1).total_seconds()
@@ -74,9 +74,11 @@ class MyMaxEnt(object):
     def p_y_given_x(self, xi, tag): # given xi determine the probability of y - note: we have all the f(x, y) values for all y in the dataset
         normalizer = 0.0
         feat = self.get_feats(xi, tag)
+	#print feat
         dot_vector = numpy.dot(numpy.array(feat), self.model)
         for t in self.tag_set:
-            feat = self.get_feats(xi, t, dp = numpy.dot(numpy.array(feat), self.model))
+            feat = self.get_feats(xi, t)
+	    dp = numpy.dot(numpy.array(feat), self.model)
             if dp == 0:
                 normalizer += 1.0
             else:
