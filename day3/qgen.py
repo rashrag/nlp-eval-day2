@@ -12,9 +12,9 @@ def init():
 	print "yr"
 	global ner
 	ner=ner_client.NerClient("1PI11CS138","G11")
-def price_query(wordlist,taglist,Org,Product):
-	#wordlist=rer_out['wordlist']
-	#taglist=rer_out['taglist']
+def price_query(rer_out,Org,Product):
+	wordlist=rer_out['wordlist']
+	taglist=rer_out['taglist']
 	make_compatible(rer_out)
 	if(Product):
 		get_org_Product_query = ner.get_products(Org,Product)
@@ -104,9 +104,9 @@ def price_query(wordlist,taglist,Org,Product):
 	else:
 		return 0
 		#write code to get products between the two given prices
-def comparison_query(wordlist,taglist,compare_base):
-	#wordlist=rer_out['wordlist']
-	#taglist=rer_out['taglist'
+def comparison_query(rer_out,compare_base):
+	wordlist=rer_out['wordlist']
+	taglist=rer_out['taglist'
 	make_compatible(rer_out)
 	Org=[]
 	Product=[]
@@ -220,10 +220,11 @@ wordlist=["Could","you","compare","Samsung","and","Apple","phones"]#"is","range"
 taglist=["Other","Other","Other","Org","Other","Org","Phone"]#,"Other","Price","Other","Price","Other"]
 Org="Apple"
 Product="iPhone 6"
-it=price_query(wordlist,taglist,"price")
+it=comparison_query(wordlist,taglist,"price")
 
 
 if(it==0):
 	print "no phones of your choice"
 else:
 	print it
+
