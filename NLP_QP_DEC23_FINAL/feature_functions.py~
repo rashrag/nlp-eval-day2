@@ -176,22 +176,7 @@ class FeatureFunctions(object):
 	 else:
 	    return 0
 	 return 0
-	
-    def fOrg_3(self, h ,tag): #low
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']
-        if(words[h["i"] - 1 ].lower() == "from" or words[h["i"] - 1 ].lower() == "by"):
-            if(words[h["i"]].lower() in org_list1):
-                return 1
-        else:
-            return 0
 
-    def fOrg_4(self, h, tag): #low
-        if tag != "Org":
-            return 0
-        words = self.wmap[h["wn"]]['words']
-        
 
     def evaluate(self, xi, tag):
         feats = []

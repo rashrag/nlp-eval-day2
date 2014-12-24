@@ -1,0 +1,72 @@
+﻿<Customer> Hi there </Customer>
+
+
+<Salesman>Hello, May I know your name.</Salesman>
+
+
+<Customer> My name is Usha </Customer>
+
+
+<Salesman>How may I help you today?</Salesman>
+
+
+<Customer> I’m looking for a good phone that has good gaming capabilities
+Could you suggest one? </Customer>
+
+
+<Salesman>Sure Thing. What features are you looking for?</Salesman>
+
+
+<Customer> Well, I mainly need a large screen and more RAM </Customer>
+
+
+<Salesman>Oh we have a  Google product- Google S. Would you like to hear the specifications?</Salesman>
+
+
+<Customer> I already have a Google Nexus 5 and it performs fairly well. I’m looking to try some other brand this time. </Customer>
+
+
+<Salesman>Alright, What is your budget?</Salesman>
+
+
+<Customer> I’m alright with paying up to Rs. 40000 if it gets me good performance. I want to be able to play games like Assassin’s Creed without lag on my device. </Customer>
+
+
+<Salesman>I would like to suggest the newest phone in the market. HTC One E8.
+It has a 5-inch full HD SLCD3 screen which will make your game playing enjoyable.</Salesman>
+
+
+<Customer> How is the RAM and GPU in this phone? Is it better than the Samsung Galaxy S4? </Customer>
+
+
+<Salesman>2GB RAM and state of the art GPU.
+Yes,even though it has lesser productivity features, it satisfies your gaming needs. I’m sure you’ll enjoy playing Assassin’s Creed :)</Salesman>
+
+
+<Customer> Sounds cool! So how much does this cost? </Customer>
+
+
+<Salesman>Just Rs.35,999. Just within the price range,</Salesman>
+
+
+<Customer> Wow that is a good deal! Does it come with warranty is it in stock right now? </Customer>
+
+
+<Salesman>No. But as the phone arrived only last week and you will be one of our first buyers of the product, I will offer you 1 year warranty from our site.</Salesman>
+
+
+<Customer> That sounds great! I’ll check it out and place an order right away. </Customer>
+
+
+<Salesman>Cool, you will be hearing from our team soon. Thank You for shopping with us.</Salesman>
+ 
+<Customer> Thanks for your help. </Customer>
+
+
+<Salesman>Welcome :) </Salesman>
+
+
+
+
+==============================================================================
+
