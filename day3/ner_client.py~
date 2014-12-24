@@ -61,8 +61,7 @@ if __name__ == "__main__":
     # run the code below from different systems - replace the pw and groups - use g100, g101, g102, g103
     ner = NerClient("1PI11CS137", "g11")
 
-    #ret = ner.get_products("Samsung")
-    ret= ner.get_spec("Apple","iPhone 6");
+    ret = ner.get_products("Samsung")
     print ret
     
     print ret[:5], len(ret)

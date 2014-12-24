@@ -98,6 +98,10 @@ def price_query(wordlist,taglist,Org,Product):
 	else:
 		return 0
 		#write code to get products between the two given prices
+def comparison_query(wordlist,taglist,Org,Product):
+		
+
+
 
 init()	
 wordlist=["Could","you","suggest","some","Samsung","phones","whose","cost","is","range","31728","and","60k","?"]
